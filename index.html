@@ -1,3 +1,4 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -87,7 +88,7 @@ h2 { font-size: 1.5rem; line-height: 1.2; font-weight: 700; margin: 0; letter-sp
 h3 { font-size: 1rem; font-weight: 600; margin: 0 0 16px; }
 
 .month-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; margin-bottom: 16px; }
-.month-head .note { color: var(--muted); font-size: 0.875rem; margin: 4px 0 0; }
+.month-head .note { color: var(--muted); font-size: 0.875rem; margin: 6px 0 0; max-width: 62ch; padding-left: 10px; border-left: 3px solid var(--taxi); }
 .months { display: flex; flex-wrap: wrap; gap: 6px; }
 .months button {
   font: inherit; font-size: 0.875rem; font-weight: 500;
@@ -184,7 +185,7 @@ footer p { margin: 0 0 6px; }
 
 <!-- ВЫВОД. Пишется вручную заново каждый месяц: что изменилось к прошлому месяцу. -->
 <section class="summary" aria-label="Вывод">
-  <p>В сентябре диалогов и номеров стало меньше примерно на 35%: 978 диалогов и 147 номеров, конверсия в номер прежняя — 15,0%. Доля ручного подключения снизилась с 53,3% до 18,6%, а после получения номера теперь происходит 65,9% подключений против 36,0% в августе. Лидов в БЭК создано 155 против 216 в августе. Сумму на бота за сентябрь получить невозможно, стоимость номера и лида за месяц не считается.</p>
+  <p>В октябре 901 диалог (−7,9% к сентябрю) и 152 номера (+3,4%), конверсия в номер выросла с 15,0% до 16,9%. Доля ручного подключения выросла с 18,6% до 30,1%, после получения номера теперь происходит 26,2% подключений против 65,9% в сентябре. Лидов в БЭК создано 152 против 155. Сумма на бота снова известна: $6,86, один номер стоит $0,05. Три дня бот не мог отправлять сообщения через Wazzup, но статистика собиралась, поэтому эти диалоги вошли в цифры месяца.</p>
 </section>
 
 <main>
@@ -238,7 +239,7 @@ footer p { margin: 0 0 6px; }
             <tr>
               <th>Месяц</th><th>Диалоги</th><th>Номера</th><th>Конверсия в номер</th>
               <th>Квалификатор, диалогов</th><th>Доля ручного подключения</th><th>До номера</th><th>После номера</th>
-              <th>Лиды</th><th>Из номера в лид</th><th>Сумма на бота</th><th>Стоимость номера</th><th>Стоимость лида</th>
+              <th>Лиды</th><th>Сумма на бота</th><th>Стоимость номера</th><th>Стоимость лида</th>
             </tr>
           </thead>
           <tbody id="tbody"></tbody>
@@ -251,7 +252,7 @@ footer p { margin: 0 0 6px; }
 
 <footer>
   <p>В итоговой строке доли и стоимости пересчитаны от сумм, а не усреднены по месяцам.</p>
-  <p>«—» означает, что данных нет или знаменатель равен нулю. В итоге конверсия в лид считается только по месяцам, где лиды собирались, а стоимости — только по месяцам, где известна сумма на бота.</p>
+  <p>«—» означает, что данных нет или знаменатель равен нулю. В итоге стоимости считаются только по месяцам, где известна сумма на бота, а стоимость лида — ещё и только там, где лиды собирались.</p>
 </footer>
 </div>
 
@@ -259,11 +260,14 @@ footer p { margin: 0 0 6px; }
 /* ДАННЫЕ. Каждый месяц — новая строка в конец массива.
    leads: null — данные не собирались. cost: null — сумму получить невозможно.
    leads_url: "https://..." — необязательно, делает число лидов ссылкой.
+   note: "..." — необязательно, пометка о событиях месяца под заголовком.
    through: "ГГГГ-ММ-ДД" — добавить, если месяц неполный (дата, по которую есть данные). */
 const DATA = [
   { month: "2026-07", dialogs: 1092, phones: 164, qualifier_total: 676, qualifier_after_phone: 64, leads: null, cost: 22.6 },
   { month: "2026-08", dialogs: 1522, phones: 227, qualifier_total: 811, qualifier_after_phone: 292, leads: 216, leads_url: "https://3q.su/m8ct", cost: 63.95 },
-  { month: "2026-09", dialogs: 978, phones: 147, qualifier_total: 182, qualifier_after_phone: 120, leads: 155, leads_url: "https://3q.su/m8xu", cost: null }
+  { month: "2026-09", dialogs: 978, phones: 147, qualifier_total: 182, qualifier_after_phone: 120, leads: 155, leads_url: "https://3q.su/m8xu", cost: null },
+  { month: "2026-10", dialogs: 901, phones: 152, qualifier_total: 271, qualifier_after_phone: 71, leads: 152, leads_url: "https://3q.su/mr4g", cost: 6.86,
+    note: "Три дня бот не мог отправлять сообщения через Wazzup. Статистика в эти дни продолжала собираться по вебхуку, поэтому эти диалоги вошли в цифры месяца, в том числе в подключения квалификатора." }
 ];
 
 const MONTHS = ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
@@ -320,11 +324,14 @@ function renderMonth() {
 
   document.getElementById("month-title").textContent = mName(d);
   const note = document.getElementById("month-note");
+  const notes = [];
   if (partial) {
     const t = d.through.split("-");
-    note.textContent = "Месяц неполный: данные по " + (+t[2]) + " " + MONTHS_GEN[+t[1] - 1] + ". Сравнение с прошлым месяцем — только по долям.";
-    note.hidden = false;
-  } else { note.hidden = true; }
+    notes.push("Месяц неполный: данные по " + (+t[2]) + " " + MONTHS_GEN[+t[1] - 1] + ". Сравнение с прошлым месяцем — только по долям.");
+  }
+  if (d.note) notes.push(d.note);
+  note.textContent = notes.join(" ");
+  note.hidden = notes.length === 0;
 
   const w = v => Math.max(0, Math.min(100, (div(v, d.dialogs) || 0) * 100)).toFixed(1);
   const leadsRow = d.leads == null
@@ -335,7 +342,6 @@ function renderMonth() {
     '<div class="funnel-row"><div class="name">Диалоги</div><div><div class="val">' + int(d.dialogs) + dl(d.dialogs, p && p.dialogs, "abs") + '</div><div class="bar"><i style="width:100%"></i></div></div></div>' +
     '<div class="step">Конверсия в номер <b>' + pct(m.conv) + "</b>" + dl(m.conv, pm.conv, "share") + "</div>" +
     '<div class="funnel-row"><div class="name">Номера</div><div><div class="val">' + int(d.phones) + dl(d.phones, p && p.phones, "abs") + '</div><div class="bar"><i style="width:' + w(d.phones) + '%"></i></div></div></div>' +
-    '<div class="step">Конверсия из номера в лид <b>' + pct(m.leadConv) + "</b>" + dl(m.leadConv, pm.leadConv, "share") + "</div>" +
     leadsRow;
 
   const beforeN = d.qualifier_total - d.qualifier_after_phone;
@@ -372,7 +378,7 @@ function tr(label, d, m, tag) {
   const c = v => "<" + tag + ">" + v + "</" + tag + ">";
   return "<tr>" + c(label) + c(int(d.dialogs)) + c(int(d.phones)) + c(pct(m.conv)) +
     c(int(d.qualifier_total)) + c(pct(m.manual)) + c(pct(m.before)) + c(pct(m.after)) +
-    c(leadsHtml(d)) + c(pct(m.leadConv)) + c(usd(d.cost)) + c(usd(m.cpp)) + c(usd(m.cpl)) + "</tr>";
+    c(leadsHtml(d)) + c(usd(d.cost)) + c(usd(m.cpp)) + c(usd(m.cpl)) + "</tr>";
 }
 
 function renderTotal() {
@@ -424,3 +430,5 @@ renderTotal();
 </script>
 </body>
 </html>
+
+</body></html>
